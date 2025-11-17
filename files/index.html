@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vianočný countdown</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="snow-canvas"></canvas>
+
+  <div class="lights" aria-hidden="true">
+    <!-- pár žiaroviek -->
+    <div class="bulb red"></div>
+    <div class="bulb green"></div>
+    <div class="bulb yellow"></div>
+    <div class="bulb blue"></div>
+    <div class="bulb red"></div>
+    <div class="bulb green"></div>
+    <div class="bulb yellow"></div>
+    <div class="bulb blue"></div>
+    <div class="bulb red"></div>
+    <div class="bulb green"></div>
+  </div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Vianočný countdown">
+      <div class="topline">
+        <span class="badge">HO HO HO</span>
+        <h1>Vianočný odpočet</h1>
+      </div>
+      <p class="sub">Počítam do <strong>25. december</strong> vo vašom časovom pásme.</p>
+
+      <div class="counters" role="group" aria-label="Čas do Vianoc">
+        <div class="unit">
+          <div class="number" id="days">--</div>
+          <div class="label">DNI</div>
+        </div>
+        <div class="unit">
+          <div class="number" id="hours">--</div>
+          <div class="label">HODÍN</div>
+        </div>
+        <div class="unit">
+          <div class="number" id="minutes">--</div>
+          <div class="label">MINÚT</div>
+        </div>
+        <div class="unit">
+          <div class="number" id="seconds">--</div>
+          <div class="label">SEKÚND</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="toggle-snow" type="button">Toggle Snow ❄️</button>
+        <button id="copy-link" type="button">Kopírovať odkaz</button>
+      </div>
+
+      <p class="made">Vyrobené s ❤️ — automatický odpočet do 25. decembra.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
