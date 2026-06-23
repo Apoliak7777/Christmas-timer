@@ -2,60 +2,139 @@
 <html lang="sk">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vianočný countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🎄 Vianočný Countdown — Odpočet do Štedrého dňa</title>
+  <meta name="description" content="Koľko dní zostáva do Vianoc? Sledujte živý odpočet do 25. decembra s krásnymi animáciami snehu a vianočnou atmosférou." />
+  <meta name="theme-color" content="#0a0a2e" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="🎄 Vianočný Countdown" />
+  <meta property="og:description" content="Sledujte živý odpočet do Štedrého dňa s krásnymi animáciami." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@300;400;700;800&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <canvas id="snow-canvas"></canvas>
+  <!-- Animated background layer -->
+  <div class="bg-layer" aria-hidden="true"></div>
 
-  <div class="lights" aria-hidden="true">
-    <!-- pár žiaroviek -->
-    <div class="bulb red"></div>
-    <div class="bulb green"></div>
-    <div class="bulb yellow"></div>
-    <div class="bulb blue"></div>
-    <div class="bulb red"></div>
-    <div class="bulb green"></div>
-    <div class="bulb yellow"></div>
-    <div class="bulb blue"></div>
-    <div class="bulb red"></div>
-    <div class="bulb green"></div>
+  <!-- Aurora Borealis effect -->
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- Snow canvas -->
+  <canvas id="snow-canvas" aria-hidden="true"></canvas>
+
+  <!-- Confetti canvas (Christmas Day) -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Floating decorations -->
+  <div class="floating-decorations" aria-hidden="true">
+    <span class="float-item">🎁</span>
+    <span class="float-item">⭐</span>
+    <span class="float-item">🎅</span>
+    <span class="float-item">🔔</span>
+    <span class="float-item">❄️</span>
+    <span class="float-item">🎄</span>
+    <span class="float-item">🦌</span>
+    <span class="float-item">🕯️</span>
   </div>
 
+  <!-- Christmas Lights -->
+  <div class="lights" aria-hidden="true">
+    <div class="lights-row">
+      <div class="bulb red"></div>
+      <div class="bulb green"></div>
+      <div class="bulb gold"></div>
+      <div class="bulb blue"></div>
+      <div class="bulb purple"></div>
+      <div class="bulb red"></div>
+      <div class="bulb green"></div>
+      <div class="bulb gold"></div>
+      <div class="bulb blue"></div>
+      <div class="bulb purple"></div>
+      <div class="bulb red"></div>
+      <div class="bulb green"></div>
+      <div class="bulb gold"></div>
+      <div class="bulb blue"></div>
+      <div class="bulb purple"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
   <main class="wrap">
-    <section class="card" role="region" aria-label="Vianočný countdown">
+    <section class="card" id="main-card" role="region" aria-label="Vianočný countdown">
+
+      <!-- Header -->
       <div class="topline">
-        <span class="badge">HO HO HO</span>
+        <span class="badge">🎅 HO HO HO</span>
         <h1>Vianočný odpočet</h1>
       </div>
-      <p class="sub">Počítam do <strong>25. december</strong> vo vašom časovom pásme.</p>
+      <p class="sub">Počítam do <strong>25. decembra</strong> vo vašom časovom pásme.</p>
 
-      <div class="counters" role="group" aria-label="Čas do Vianoc">
-        <div class="unit">
-          <div class="number" id="days">--</div>
-          <div class="label">DNI</div>
+      <!-- Countdown Section -->
+      <div class="countdown-section">
+        <div class="counters" role="group" aria-label="Čas do Vianoc">
+          <div class="unit" id="unit-days">
+            <div class="number" id="days">--</div>
+            <div class="label">Dní</div>
+          </div>
+          <span class="separator" aria-hidden="true">:</span>
+          <div class="unit" id="unit-hours">
+            <div class="number" id="hours">--</div>
+            <div class="label">Hodín</div>
+          </div>
+          <span class="separator" aria-hidden="true">:</span>
+          <div class="unit" id="unit-minutes">
+            <div class="number" id="minutes">--</div>
+            <div class="label">Minút</div>
+          </div>
+          <span class="separator" aria-hidden="true">:</span>
+          <div class="unit" id="unit-seconds">
+            <div class="number" id="seconds">--</div>
+            <div class="label">Sekúnd</div>
+          </div>
         </div>
-        <div class="unit">
-          <div class="number" id="hours">--</div>
-          <div class="label">HODÍN</div>
-        </div>
-        <div class="unit">
-          <div class="number" id="minutes">--</div>
-          <div class="label">MINÚT</div>
-        </div>
-        <div class="unit">
-          <div class="number" id="seconds">--</div>
-          <div class="label">SEKÚND</div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Progres k Vianociam</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
         </div>
       </div>
 
+      <!-- Christmas Day Message (hidden by default) -->
+      <div class="christmas-message">
+        <div class="christmas-emoji">🎄</div>
+        <h2 class="christmas-title">Veselé Vianoce!</h2>
+        <p class="christmas-sub">Šťastné a pokojné sviatky vám želáme! 🎁✨</p>
+      </div>
+
+      <!-- Controls -->
       <div class="controls">
-        <button id="toggle-snow" type="button">Toggle Snow ❄️</button>
-        <button id="copy-link" type="button">Kopírovať odkaz</button>
+        <button class="btn" id="toggle-snow" type="button" aria-label="Prepnúť sneh">
+          <span class="btn-icon">❄️</span>
+          <span id="snow-label">Vypnúť sneh</span>
+        </button>
+        <button class="btn" id="copy-link" type="button" aria-label="Kopírovať odkaz">
+          <span class="btn-icon">🔗</span>
+          <span id="copy-label">Kopírovať odkaz</span>
+        </button>
       </div>
 
-      <p class="made">Vyrobené s ❤️ — automatický odpočet do 25. decembra.</p>
+      <p class="made">Vyrobené s <span class="heart">❤️</span> — automatický odpočet do 25. decembra.</p>
     </section>
   </main>
 
